@@ -16,7 +16,7 @@ Download J-Electre-v1.0 at: https://sourceforge.net/projects/j-electre/files/
 
 # Lessons
 
-* Lesson-01  Electre I    : https://www.researchgate.net/publication/319504754_MCDA-01-ELECTRE_I
+* Lesson-01  Electre I    : https://www.researchgate.net/publication/319504754_MCDA-01-ELECTRE_I   or http://www.emeraldinsight.com/doi/abs/10.1108/JM2-08-2013-0037
 * Lesson-02a Electre I_v  : https://www.researchgate.net/publication/319506914_MCDA-02a-ELECTRE_I_v
 * Lesson-02b Electre I_s  : https://www.researchgate.net/publication/320211536_MCDA-02b-ELECTRE_I_s
 * Lesson-03  Electre II   : https://www.researchgate.net/publication/320472825_MCDA-03-ELECTRE_II
