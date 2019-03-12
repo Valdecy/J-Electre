@@ -1,6 +1,6 @@
 package matrixELECTRE;
 
-//	Copyright © 2017 by Valdecy Pereira, Helder Gomes Costa and Livia Dias de Oliveira Nepomuceno.
+//	Copyright Â© 2017 by Valdecy Pereira, Helder Gomes Costa and Livia Dias de Oliveira Nepomuceno.
 
 //	This file is part of J-ELECTRE.
 //
@@ -36,14 +36,6 @@ public class ELECTRE_I_v {
 		int f     = 0;
 		int setKD = 0;
 
-		//		double[][]  arrayOut1 = Concordance.getConcordanceMatrixEI_v(array, weights);
-		//		double[][]  arrayOut2 = Discordance.getDiscordanceMatrixEI_v(array, v);
-		//		double[][]  arrayOut3 = Credibility.getCredibilityMatrixEI_v(array, v, weights);
-		//	
-		//		int cols = arrayOut1[0].length;
-		//
-		//		String [][] arrayFinal    = new String[arrayOut1.length + arrayOut2.length + arrayOut3.length + 9][cols + 4]; 
-
 		arraySolution[0][0] = "Kernel: ";
 		arraySolution[1][0] = "Dominated: ";
 		for (int i = 0; i < arraySolution.length; i++) {
@@ -56,11 +48,6 @@ public class ELECTRE_I_v {
 				arrayOutput[i][j] = " ";
 			}
 		}
-		//		for (int i = 0; i < arrayFinal.length; i++) {
-		//			for (int j = 0; j < arrayFinal[0].length; j++) {
-		//				arrayFinal[i][j] = " ";
-		//			}
-		//		}
 		for (int i = 0; i < arrayP2.length; i++) {
 			if (arrayP2[i] == 0) {
 				arrayP3[i] = i + 1;
