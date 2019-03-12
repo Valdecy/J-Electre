@@ -12,7 +12,9 @@ This is a java based software that solves the following MCDA problems:
 * Electre TRI and 
 * Electre TRI ME.
 
-Download J-Electre-v1.0 at: https://sourceforge.net/projects/j-electre/files/
+J-Electre-v2.0 (12-MARCH-2019) corrects minor bugs and adds graph represetations to the obtained solutions.The graphs are generated using sigma.js (http://sigmajs.org/)
+
+Download J-Electre-v2.0 at: https://sourceforge.net/projects/j-electre/files/
 
 # Lessons
 
