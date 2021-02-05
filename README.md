@@ -28,7 +28,7 @@ Download J-Electre-v2.0 at: https://sourceforge.net/projects/j-electre/files/
 
 # Other MCDA Methods
 
-Try online in the **Colab**,  my new library - [pyDecisions](https://github.com/Valdecy/pyDecisions) - with many MCDA methods implemented. 
+Try online in the **Colab**  my new library - [pyDecisions](https://github.com/Valdecy/pyDecisions) - with many MCDA methods implemented. 
 
 - AHP ([ Colab Demo ](https://colab.research.google.com/drive/1qwFQs5xkTZ8K-Ul_wWcCtPjLH0QooU9g?usp=sharing))
 - Fuzzy AHP ([ Colab Demo ](https://colab.research.google.com/drive/1RtEMOLGL5wtmheMRZv8emcO5wbjYVBCo?usp=sharing))
