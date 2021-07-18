@@ -1,0 +1,576 @@
+
+<html lang = 'en' class =''>
+
+<head>
+
+  <title> Electre III </title>
+  <meta charset = 'UTF-8'>
+  <meta name = 'robots' content = 'noindex'>
+  <link href = 'iconfont/material-icons.css' rel = 'stylesheet'/>
+
+  <style class = 'cp-pen-styles'> @import 'css_roboto.css';
+    html, body {
+      margin:       0;
+      font-family: 'Roboto';
+      background:  #f1f1f1;
+      overflow:     auto;
+    } /* Menu and Frame control*/
+
+    #cont:target > menu-fixed {
+      width:      120px;
+      background: #111;
+      transition: all 0.3s;
+    }
+    #cont:target > menu-fixed > a .material-icons.back {
+      display: none;
+    }
+    #cont:target > menu-fixed > .menu li {
+      text-align: center;
+      width: 40%;
+    }
+    #cont:target > menu-fixed > .menu li > p {
+      display: none;
+    }
+
+    #menu-fixed {
+      width:      120px; /* Menu width*/
+      z-index:    2;
+      height:     100%; /* Menu heigth*/
+      background: #0F0F0F; /* Menu color*/
+      position:   fixed;
+      transition: all 0.5s; /* Menu expand*/
+      box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.19), 8px 0px 10px rgba(0, 0, 0, 0.23); /* Menu shadow*/
+      text-align: center;
+      overflow:   auto;
+    }
+    #menu-fixed .material-icons.back {
+      display:    none;
+      color:      white;
+      position:   absolute;
+      left:       10px;
+      top:        10px;
+      font-size:  36px;
+      cursor:     pointer;
+      transition: color 0.3s;
+    }
+    #menu-fixed .material-icons.back:hover {
+      color:      #009688;
+      transition: color 0.3s;
+    }
+    #menu-fixed:target {
+      width:      280px;
+      background: #000;
+      transition: all 0.3s ease-out;
+    }
+    #menu-fixed:target > .notes {
+      transition: all 0.2s;
+      z-index:    0;
+      opacity:    0;
+    }
+    #menu-fixed:target > a .material-icons.back {
+      display: block;
+    }
+    #menu-fixed:target > a > .logo {
+      width:  60%;
+      height: 47px;
+      margin: auto;
+    }
+    #menu-fixed:target > a > .logo > span {
+      display: none;
+    }
+    #menu-fixed:target > a > .logo > p {
+      display: block;
+    }
+    #menu-fixed:target > .menu li {
+      text-align: left;
+      width: 60%;
+    }
+    #menu-fixed:target > .menu li:hover::after {
+      content:       '';
+      display:       block;
+      position:      absolute;
+      background:    rgba(38, 166, 154, 0.1);
+      width:         100%;
+      height:        100%;
+      top:           0;
+      left:          0;
+      border-radius: 4px;
+    }
+    #menu-fixed:target > .menu li:hover > p {
+      color: white;
+    }
+    #menu-fixed:target > .menu li > p {
+      display: inline-block;
+    }
+    #menu-fixed .logo {
+      width:    100%;
+      height:   70px;
+      position: relative;
+      cursor:   pointer;
+    }
+    #menu-fixed .logo p {
+      display:        none;
+      color:         #999;
+      font-size:      23px;
+      padding-bottom: 0;
+      font-weight:    300;
+    }
+    #menu-fixed .logo span {
+      width:             10px;
+      height:            10px;
+      position:          absolute;
+      margin:            auto;
+      left:              0;
+      right:             0;
+      top:               25px;
+      transform:         rotateZ(45deg);
+      -webkit-transform: rotateZ(45deg);
+      border:            8px solid white;
+      transition:        all 0.2s;
+    }
+    #menu-fixed .logo:hover ~ p {
+      color:      white;
+      transition: all 0.3s;
+    }
+    #menu-fixed .logo:hover > span {
+      width:             0;
+      height:            0;
+      border-left:       15px solid white;
+      border-right:      15px solid rgba(0, 0, 0, 0);
+      border-top:        15px solid rgba(0, 0, 0, 0);
+      border-bottom:     15px solid rgba(0, 0, 0, 0);
+      transition:        all 0.2s;
+      transform:         rotateZ(0deg) translateX(10px);
+      -webkit-transform: rotateZ(0deg) translateX(10px);
+    }
+    #menu-fixed .logo:hover > span::after {
+      content:       '';
+      display:       block;
+      width:         0;
+      height:        0;
+      border-left:   8px solid #111;
+      border-right:  8px solid rgba(0, 0, 0, 0);
+      border-top:    8px solid rgba(0, 0, 0, 0);
+      border-bottom: 8px solid rgba(0, 0, 0, 0);
+      left:         -15px;
+      position:      absolute;
+      top:          -8px;
+    }
+    #menu-fixed .pmenu {
+      margin:      0;
+      text-align:  center;
+      color:      rgba(255, 255, 255, 0.4);
+      font-size:   14px;
+      font-weight: 300;
+    }
+    #menu-fixed hr {
+      width:  75%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    #menu-fixed .menu {
+      list-style: none;
+      margin:     0;
+      padding:    0;
+      width:      100%;
+    }
+    #menu-fixed .menu li {
+      padding:             15px;
+      width:               40%;
+      margin:              auto;
+      border-bottom:       1px solid rgba(255, 255, 255, 0.1);
+      border-bottom-style: dotted;
+      cursor:              pointer;
+      overflow:            hidden;
+      position:            relative;
+      transition:          all 0.3s;
+    }
+    #menu-fixed .menu li:last-child {
+      border: none;
+    }
+    #menu-fixed .menu li:hover {
+      background: #000;
+      transition: all 0.3s;
+    }
+    #menu-fixed .menu li:hover > .material-icons {
+      color: white;
+    }
+    #menu-fixed .menu li .material-icons {
+      color: #999;
+    }
+    #menu-fixed .menu li p {
+      display:      none;
+      margin:       auto;
+      color:       #888;
+      font-size:    14px;
+      font-weight:  300;
+      position:     absolute;
+      padding-left: 30px;
+      line-height:  30px;
+    }
+
+    .material-icons.info {
+      color:    #999;
+      position: absolute;
+      margin:   0;
+      bottom:   20px;
+      left:     0;
+      right:    0;
+    }
+
+    #page {
+    width:         700px;
+    height:        700px;
+    margin-left:   25%;
+    margin-right:  25%;
+    display:       block;
+    margin-bottom: 7%;
+    margin-top:    3.5%;
+    position:      relative;
+    }
+    #page div {
+    width:      150%;
+    height:     100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    background: white;
+    z-index:    1;
+    }
+
+    a:link, a:visited {
+    text-decoration: none;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- import scripts     -->
+  <script src = 'sigma.js-1.2.1/src/sigma.core.js'>                                           </script>
+  <script src = 'sigma.js-1.2.1/src/conrad.js'>                                               </script>
+  <script src = 'sigma.js-1.2.1/src/utils/sigma.utils.js'>                                    </script>
+  <script src = 'sigma.js-1.2.1/src/utils/sigma.polyfills.js'>                                </script>
+  <script src = 'sigma.js-1.2.1/src/sigma.settings.js'>                                       </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.dispatcher.js'>                     </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.configurable.js'>                   </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.graph.js'>                          </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.camera.js'>                         </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.quad.js'>                           </script>
+  <script src = 'sigma.js-1.2.1/src/classes/sigma.classes.edgequad.js'>                       </script>
+  <script src = 'sigma.js-1.2.1/src/captors/sigma.captors.mouse.js'>                          </script>
+  <script src = 'sigma.js-1.2.1/src/captors/sigma.captors.touch.js'>                          </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/sigma.renderers.canvas.js'>                     </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/sigma.renderers.webgl.js'>                      </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/sigma.renderers.svg.js'>                        </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/sigma.renderers.def.js'>                        </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js'>                </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js'>               </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js'>                </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js'>               </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js'>              </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js'>             </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js'>             </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js'>              </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js'>              </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js'>            </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js'>            </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js'>      </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js'>         </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js'>       </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js'>       </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js'> </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js'>        </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.utils.js'>                        </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js'>                    </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js'>                    </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js'>                  </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js'>                   </script>
+  <script src = 'sigma.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js'>                   </script>
+  <script src = 'sigma.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js'>                </script>
+  <script src = 'sigma.js-1.2.1/src/middlewares/sigma.middlewares.copy.js'>                   </script>
+  <script src = 'sigma.js-1.2.1/src/misc/sigma.misc.animation.js'>                            </script>
+  <script src = 'sigma.js-1.2.1/src/misc/sigma.misc.bindEvents.js'>                           </script>
+  <script src = 'sigma.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js'>                        </script>
+  <script src = 'sigma.js-1.2.1/src/misc/sigma.misc.drawHovers.js'>                           </script>
+  <script src = 'electre_iii.js'>                                                               </script>
+  <!-- end import scripts -->
+
+  <!-- import plugins    -->
+  <script src = 'sigma.js-1.2.1/plugins/sigma.plugins.dragNodes/sigma.plugins.dragNodes.js'>  </script>
+  <script src = 'sigma.js-1.2.1/plugins/sigma.renderers.snapshot/sigma.renderers.snapshot.js'></script>
+  <!-- end import plugins -->
+
+<!-- Menu -->
+<div id = 'cont'>
+
+  <div id = 'menu-fixed'>
+
+    <a href = '#cont'> <i class = 'material-icons back'> &#xE314; </i> </a>
+    <a href = '#menu-fixed'> 
+      <div class = 'logo'> 
+        <span></span>   
+        <p> OPTIONS </p>
+      </div>
+      <p class = 'pmenu'> MENU </p>
+    </a>
+
+    <hr>
+
+    <ul class = 'menu'>
+      <!-- Google Material Icons --> 
+      <a onclick = 'window.location.reload()'> <li> <i class = 'material-icons'> &#xe5d5; </i> <p>Reload     </p> </li> </a>
+      <a onclick = 'darkCanvas ()'>            <li> <i class = 'material-icons'> &#xe3a8; </i> <p>Night      </p> </li> </a>
+      <a onclick = 'lightCanvas()'>            <li> <i class = 'material-icons'> &#xe430; </i> <p>Day        </p> </li> </a>
+      <a onclick = 'graph_01   ()'>            <li> <i class = 'material-icons'> &#xe400; </i> <p>Ascending  </p> </li> </a>
+      <a onclick = 'graph_02   ()'>            <li> <i class = 'material-icons'> &#xe401; </i> <p>Descending </p> </li> </a>
+      <a onclick = 'graph_03   ()'>            <li> <i class = 'material-icons'> &#xe3fb; </i> <p>Final      </p> </li> </a>
+      <a onclick = 'saveImage  ()'>            <li> <i class = 'material-icons'> &#xe161; </i> <p>Save Image </p> </li> </a>
+    </ul>
+
+  </div>
+  
+</div>
+<!-- end Menu -->
+
+  <!-- Page -->
+  <div id = 'page'>
+
+    <!-- Canvas-->
+    <div id = 'page_canvas'>
+
+      <!-- code   -->
+      <script type = 'text/javascript'>
+        // Initialize variables
+        var edge_id = 'e_id';
+        var count   = 0;
+        var bckg    = 'white';
+
+        // Initialize sigma:
+        var g = new sigma('page_canvas');
+
+        // Nodes
+        for (r = 1; r < electre.length; r++) {
+            g.graph.
+            addNode({id: electre[r][0], label: electre[r][0], x: 0, y: 0, size: 1, color: '#000'});
+        }
+
+        // Edges
+        for (r = 1; r < electre.length; r++) {
+          for (c = 1; c < electre[0].length; c++) {
+            if (electre[r][c] == '1.0'){
+              edge_id = 'e' + count;
+              g.graph.
+              addEdge({id: edge_id, source: electre[r][0], target: electre[0][c], type: 'arrow', size: 1, color: '#d3d3d3'});
+              count = count + 1;	
+              }		
+          }
+        }
+      
+        // Graph settings
+        g.settings(
+        { 
+        maxNodeSize:    10,
+        minNodeSize:    10,
+        minEdgeSize:    7,
+        maxEdgeSize:    7,
+        labelThreshold: 1,
+        labelColor:    'node'
+        }
+        );
+
+        // Display nodes
+        count = 0;
+        g.graph.nodes().forEach(function(node, i, a) {
+          node.x = parseFloat(xy[count][1]);
+          node.y = parseFloat(xy[count][2]);
+          count = count  + 1;
+        });
+        
+        g.cameras[0].goTo({ x: 0, y: 0, angle: 0, ratio: 1.1 });
+        g.refresh();
+
+        // DragNodes
+        var dragListener = sigma.plugins.dragNodes(g, g.renderers[0]);
+        dragListener.bind('startdrag', function(event) {
+          console.log(event);
+        });
+        dragListener.bind('drag',      function(event) {
+          console.log(event);
+        });
+        dragListener.bind('drop',      function(event) {
+          console.log(event);
+        });
+        dragListener.bind('dragend',   function(event) {
+          console.log(event);
+        });
+
+        //Function:  Search element
+        function contains(arr, element) {
+          for (var i = 0; i < arr.length; i++) {
+              if (arr[i] === element) {
+                  return true;
+              }
+          }
+          return false;
+        }
+        //Function:  Save image
+        function saveImage() {
+          var dataUrl = g.renderers[0].snapshot();
+          g.renderers[0].snapshot({
+          format:     'jpg',
+          background: bckg,
+          download:   true
+          });
+        }
+
+        //Function: Day
+        function lightCanvas (){
+          var div = document.getElementById('page_canvas');
+          div.style.backgroundColor = 'white';
+          g.graph.nodes().forEach(function (node){
+            if (node.color == '#ffff00'){
+              node.color = '#000'
+            }
+            if (node.color == '#e5e5ff'){
+              node.color = '#00f'
+            }
+            if (node.color == '#ffe5e5'){
+              node.color = '#f00'
+            }
+          });
+          g.graph.edges().forEach(function (edge){
+            edge.color = '#d3d3d3'
+          });
+          bckg = 'white';
+          g.refresh();
+        }
+
+        //Function: Night
+        function darkCanvas (){
+          var div = document.getElementById('page_canvas');
+          div.style.backgroundColor = 'black';
+          g.graph.nodes().forEach(function (node){
+            if (node.color == '#000'){
+              node.color = '#ffff00'
+            }
+            if (node.color == '#00f'){
+              node.color = '#e5e5ff'
+            }
+            if (node.color == '#f00'){
+              node.color = '#ffe5e5'
+            }
+          });
+          g.graph.edges().forEach(function (edge){
+            edge.color = '#d3d3d3'
+          });
+          bckg = 'black';
+          g.refresh();
+        }
+
+        //Function: Sort
+        function comparator(a, b) {
+          if (parseInt(a[1]) < parseInt(b[1])){
+            return -1;
+          } else if (parseInt(a[1]) > parseInt(b[1])){
+            return  1;
+          } else if (parseInt(a[1]) === parseInt(b[1])){
+            return 0;
+          }
+        }
+
+        //Function: A matrix
+        function graph_01() {
+          g.graph.clear();
+          g.refresh();
+
+          a_matrix = a_matrix.sort(comparator);
+
+          // Nodes
+          for (r = 0; r < a_matrix.length; r++) {
+              g.graph.
+              addNode({id: a_matrix[r][0], label: a_matrix[r][0] + " (" + a_matrix[r][1] + ")", x: 0, y: 0, size: 1, color: '#00f'});
+          }
+
+          // Display nodes
+          g.graph.nodes().forEach(function(node, i, a) {
+            node.x = Math.floor(i/a_matrix.length);
+            node.y = i % a_matrix.length;
+          });
+
+          lightCanvas();
+          g.cameras[0].goTo({ x: 0, y: 0, angle: 0, ratio: 1.1 });
+          g.refresh();
+        };
+
+        //Function: D matrix
+        function graph_02() {
+          g.graph.clear();
+          g.refresh();
+
+          d_matrix = d_matrix.sort(comparator);
+
+          // Nodes
+          for (r = 0; r < d_matrix.length; r++) {
+              g.graph.
+              addNode({id: d_matrix[r][0], label: d_matrix[r][0] + " (" + d_matrix[r][1] + ")", x: 0, y: 0, size: 1, color: '#f00'});
+          }
+
+          // Display nodes
+          g.graph.nodes().forEach(function(node, i, a) {
+            node.x = Math.floor(i/d_matrix.length);
+            node.y = i % d_matrix.length;
+          });
+
+          lightCanvas();
+          g.cameras[0].goTo({ x: 0, y: 0, angle: 0, ratio: 1.1 });
+          g.refresh();
+        };
+
+        //Function: F matrix
+        function graph_03() {
+          g.graph.clear();
+          g.refresh();
+
+          // Nodes
+          for (r = 1; r < electre.length; r++) {
+              g.graph.
+              addNode({id: electre[r][0], label: electre[r][0], x: 0, y: 0, size: 1, color: '#000'});
+          }
+
+          // Edges
+          for (r = 1; r < electre.length; r++) {
+            for (c = 1; c < electre[0].length; c++) {
+              if (electre[r][c] == '1.0'){
+                edge_id = 'e' + count;
+                g.graph.
+                addEdge({id: edge_id, source: electre[r][0], target: electre[0][c], type: 'arrow', size: 1, color: '#d3d3d3'});
+                count = count + 1;	
+                }		
+            }
+          }
+
+          // Display nodes
+          count = 0;
+          g.graph.nodes().forEach(function(node, i, a) {
+            node.x = parseFloat(xy[count][1]);
+            node.y = parseFloat(xy[count][2]);
+            count = count  + 1;
+          });
+
+          lightCanvas();
+          g.cameras[0].goTo({ x: 0, y: 0, angle: 0, ratio: 1.1 });
+          g.refresh();
+        };
+      </script>
+
+      <!-- end code   -->
+
+    </div>
+    <!-- end Canvas-->
+
+  </div>
+  <!-- end Page -->
+
+</body>
+
+</html>
